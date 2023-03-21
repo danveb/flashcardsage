@@ -1,6 +1,7 @@
 // for typescript we can use import (MODULES) by default
 
 import express, { Request, Response } from "express"; 
+import "dotenv/config"; 
 import mongoose from "mongoose";
 import Deck from "./models/Deck"; 
 const PORT = process.env.PORT || 8801; 
@@ -35,7 +36,7 @@ app.post("/decks", async (req: Request, res: Response) => {
 // connect mongoose to mongodb
 // use .env 
 const db = mongoose
-    .connect("mongodb+srv://danveb:nUUvXwYP4nUzAFqk@cluster0.hahfb1p.mongodb.net/?retryWrites=true&w=majority")
+    .connect(process.env.MONGO_URI!)
     .then(() => {
         console.log(`Listening on port ${PORT}`);
         app.listen(PORT); 
