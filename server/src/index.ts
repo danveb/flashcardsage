@@ -46,6 +46,21 @@ app.post("/decks", async (req: Request, res: Response) => {
     res.json(createdDeck); // status 200, title and unique _id
 });
 
+// DELETE /decks 
+// delete deck from db 
+app.delete("/decks/:deckId", async (req: Request, res: Response) => {
+    // TODO
+    // 1. get deck id from url 
+    const { deckId } = req.params; 
+    // 2. delete deck from db 
+    const deck = await Deck.findByIdAndDelete(deckId); 
+    // 3. return deleted deck to the user who made request 
+    res.json({
+        message: "Successfully deleted the entry", 
+        deck, 
+    }); 
+});
+
 // connect mongoose to mongodb
 // use .env 
 const db = mongoose

@@ -39,9 +39,12 @@
     -webkit-box-shadow: 5px 5px 5px -4px #ddd; 
     box-shadow: 5px 5px 5px -4px #ddd; 
     border-radius: 5px; 
+    position: relative; 
 }
 
-.decks li:hover {
-    background: #eee; 
-    cursor: pointer; 
+.decks li button {
+    position: absolute;
+    font-size: 10px; 
+    top: 0;
+    right: 0; 
 }
