@@ -4,18 +4,31 @@ import express, { Request, Response } from "express";
 import "dotenv/config"; 
 import mongoose from "mongoose";
 import Deck from "./models/Deck"; 
+import cors from "cors"; 
 const PORT = process.env.PORT || 8801; 
 
 const app = express(); 
 
 // add different support for payloads
 // middleware function (express.json())
+// middleware function (cors()) 
 app.use(express.json()); 
+app.use(cors()); 
 
 // add types to req/res for typescript
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello World"); 
 }); 
+
+// GET /decks 
+app.get("/decks", async (req: Request, res: Response) => {
+    // TODO: fetch all decks and send back to user
+    // 1. how do we fetch the decks from mongo?
+    const decks = await Deck.find(); 
+    // console.log(decks); 
+    // 2. how do we send back the array to the ui? 
+    res.json(decks); 
+});
 
 // POST /decks 
 // send data to endpoint and persist in db
