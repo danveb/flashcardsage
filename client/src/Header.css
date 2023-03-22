@@ -1,0 +1,14 @@
+.Header {
+    height: 50px; 
+    background: #fff; 
+    width: 100%; 
+}
+
+.Header .container {
+    display: flex; 
+    justify-content: space-between; 
+    margin: 0 auto;
+    align-items: center; 
+    width: 800px; 
+    height: 100%; 
+}

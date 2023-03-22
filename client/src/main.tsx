@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import Deck from "./components/Deck"; 
+import Deck from "./Deck"; 
 import './index.css'
 import {
   createBrowserRouter,
@@ -21,6 +21,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <div className="page">
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>,
 )

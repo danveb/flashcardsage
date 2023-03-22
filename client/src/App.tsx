@@ -4,6 +4,7 @@ import "./App.css";
 import { deleteDeck } from "./api/deleteDeck";
 import { TDeck, getDecks } from "./api/getDecks";
 import { createDeck } from "./api/createDeck";
+import { Header } from "./Header";
 
 // TypeScript
 // type TDeck = {
@@ -70,30 +71,34 @@ function App() {
     }, [])
 
     return (
-        <div className="App">
-            <ul className="decks">
-                {decks.map((deck) => (
-                    <li key={deck._id}>
-                        <button onClick={() => handleDeleteDeck(deck._id)}>X</button>
-                        <Link to={`decks/${deck._id}`}>{deck.title}</Link>
-                    </li>
-                ))}
-            </ul>
-            <form onSubmit={handleCreateDeck}>
-                <label htmlFor="deck-title">Deck Title</label>
-                <input 
-                    id="deck-title"
-                    type="text"
-                    name="deck-title"
-                    // for onChange, onClick on HTML element
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        // TODO: save what the user typed
-                        setTitle(e.target.value); 
-                    }}
-                    value={title}
-                /> 
-                <button>Create Deck</button>
-            </form>
+        <div className="container">
+            <Header />
+            <div className="App">
+                <h1>Your Decks</h1>
+                <ul className="decks">
+                    {decks.map((deck) => (
+                        <li key={deck._id}>
+                            <button onClick={() => handleDeleteDeck(deck._id)}>X</button>
+                            <Link to={`decks/${deck._id}`}>{deck.title}</Link>
+                        </li>
+                    ))}
+                </ul>
+                <form onSubmit={handleCreateDeck}>
+                    <label htmlFor="deck-title">Deck Title</label>
+                    <input 
+                        id="deck-title"
+                        type="text"
+                        name="deck-title"
+                        // for onChange, onClick on HTML element
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            // TODO: save what the user typed
+                            setTitle(e.target.value); 
+                        }}
+                        value={title}
+                    /> 
+                    <button>Create Deck</button>
+                </form>
+            </div>
         </div>
     )
 }
