@@ -6,6 +6,12 @@ import mongoose from "mongoose";
 import Deck from "./models/Deck"; 
 import cors from "cors"; 
 const PORT = process.env.PORT || 8801; 
+import { getDecksController } from "./controllers/getDecksController";
+import { createDeckController } from "./controllers/createDeckController";
+import { deleteDeckController } from "./controllers/deleteDeckController";
+import { createCardForDeckController } from "./controllers/createCardForDeckController";
+import { getDeckController } from "./controllers/getDeckController";
+import { deleteCardOnDeckController } from "./controllers/deleteCardOnDeckController";
 
 const app = express(); 
 
@@ -21,45 +27,24 @@ app.get("/", (req: Request, res: Response) => {
 }); 
 
 // GET /decks 
-app.get("/decks", async (req: Request, res: Response) => {
-    // TODO: fetch all decks and send back to user
-    // 1. how do we fetch the decks from mongo?
-    const decks = await Deck.find(); 
-    // console.log(decks); 
-    // 2. how do we send back the array to the ui? 
-    res.json(decks); 
-});
+app.get("/decks", getDecksController);
 
 // POST /decks 
 // send data to endpoint and persist in db
-app.post("/decks", async (req: Request, res: Response) => {
-    // res.send("Hello from /decks endpoint"); 
-    // req.body for our custom "title" 
-    // console.log(req.body); 
-    const { title } = req.body; 
-    // instantiate a new Deck 
-    const newDeck = new Deck({
-        title: title, 
-    });
-    // save to db (async/await since working with db)
-    const createdDeck = await newDeck.save(); 
-    res.json(createdDeck); // status 200, title and unique _id
-});
+app.post("/decks", createDeckController); 
 
-// DELETE /decks 
+// DELETE /decks/:id
 // delete deck from db 
-app.delete("/decks/:deckId", async (req: Request, res: Response) => {
-    // TODO
-    // 1. get deck id from url 
-    const { deckId } = req.params; 
-    // 2. delete deck from db 
-    const deck = await Deck.findByIdAndDelete(deckId); 
-    // 3. return deleted deck to the user who made request 
-    res.json({
-        message: "Successfully deleted the entry", 
-        deck, 
-    }); 
-});
+app.delete("/decks/:deckId", deleteDeckController);
+
+// POST /decks/:deckId/cards
+app.post("/decks/:deckId/cards", createCardForDeckController); 
+
+// GET /decks/:deckId
+app.get("/decks/:deckId", getDeckController); 
+
+// DELETE /decks/:deckId/cards/:cardId
+app.delete("/decks/:deckId/cards/:index", deleteCardOnDeckController); 
 
 // connect mongoose to mongodb
 // use .env 
